@@ -7,7 +7,6 @@ class Api::V1::ItinerariesController < ApplicationController
   end
 
   def show
-    # require 'pry'; binding.pry
     itinerary = Itinerary.find(params[:id])
     render json: ItinerarySerializer.format_itinerary(itinerary)
   end

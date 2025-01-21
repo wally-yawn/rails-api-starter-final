@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Itinerary API', type: :request do
+RSpec.describe 'UserItinerary API', type: :request do
 
   describe 'show' do
     it 'returns a users itineraries when itineraries are found' do

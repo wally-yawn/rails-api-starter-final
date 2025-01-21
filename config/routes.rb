@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :itineraries, only: [:index, :show]
       resources :user_itineraries, only: :show
+      resources :shows, only: :destroy
     end
   end
 end

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Itinerary API', type: :request do
   describe 'index' do
     it 'returns a list of itineraries' do
+      # require 'pry'; binding.pry
       Itinerary.destroy_all
 
       itinerary1 = Itinerary.create!(
@@ -43,6 +44,79 @@ RSpec.describe 'Itinerary API', type: :request do
       expect(response).to be_successful
 
       expect(json[:data].length).to eq(0)
+    end
+  end
+
+  describe 'show' do
+    it 'returns an itinerary when the itinerary is found' do
+      Itinerary.destroy_all
+      User.destroy_all
+      Show.destroy_all
+      UserItinerary.destroy_all
+      ItineraryShow.destroy_all
+
+      itinerary1 = Itinerary.create!(
+        title: "CO Bands Day 1",
+        date: Date.new(2025, 2, 1),
+        img_url: "https://en.wikipedia.org/wiki/File:Flag_of_Colorado.svg"
+      )
+
+      user1 = User.create!(
+        first_name: "Wally",
+        last_name: "Wallace",
+        email: "wwallace24@turing.edu"
+      )
+      
+      user2 = User.create!(
+        first_name: "Dahlia",
+        last_name: "Wallace",
+        email: "dahila@cat.com"
+      )
+
+      show1 = Show.create!(
+        name: "Iron Maidens",
+        date: Date.new(2025, 2, 1),
+        time: Time.parse("19:00")
+      )
+
+      show1 = Show.create!(
+        name: "The Deceitful Mind",
+        date: Date.new(2025, 2, 1),
+        time: Time.parse("21:00")
+      )
+
+      itinerary_show1 = ItineraryShow.create!(
+        itinerary_id: itinerary1.id,
+        show_id: show1.id
+      )
+
+      itinerary_show2 = ItineraryShow.create!(
+        itinerary_id: itinerary1.id,
+        show_id: show2.id
+      )
+
+      user_itinerary1 = UserItinerary.create!(
+        user_id: user1.id,
+        itinerary_id: itinerary1.id
+      )
+
+      user_itinerary2 = UserItinerary.create!(
+        user_id: user2.id,
+        itinerary_id: itinerary1.id
+      )
+    end
+
+    it 'returns a 404 if the itinerary is not found' do
+      Itinerary.destroy_all
+
+      get "/api/v1/itinerary/1"
+      expect(response).to_not be_successful
+# require 'pry'; binding.pry
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      error = data[:errors].first
+      expect(error[:status]).to eq("404")
+      expect(error[:title]).to eq("Couldn't find Item with 'id'=1") 
     end
   end
 end

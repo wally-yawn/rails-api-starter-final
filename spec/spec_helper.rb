@@ -92,6 +92,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
-config.formatter = :documentation
+# config.formatter = :documentation
 
 end

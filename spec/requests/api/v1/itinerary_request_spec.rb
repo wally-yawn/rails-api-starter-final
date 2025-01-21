@@ -79,7 +79,7 @@ RSpec.describe 'Itinerary API', type: :request do
         time: Time.parse("19:00")
       )
 
-      show1 = Show.create!(
+      show2 = Show.create!(
         name: "The Deceitful Mind",
         date: Date.new(2025, 2, 1),
         time: Time.parse("21:00")
@@ -104,19 +104,32 @@ RSpec.describe 'Itinerary API', type: :request do
         user_id: user2.id,
         itinerary_id: itinerary1.id
       )
+
+      get "/api/v1/itineraries/#{itinerary1.id}"
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to be_successful
+
+      expect(json[:data][:id]).to eq(itinerary1.id)
+      expect(json[:data][:type]).to eq("itinerary")
+      expect(json[:data][:attributes][:title]).to eq("CO Bands Day 1")
+      expect(json[:data][:attributes][:date]).to eq("2025-02-01")
+      expect(json[:data][:attributes][:img_url]).to eq("https://en.wikipedia.org/wiki/File:Flag_of_Colorado.svg")
+      expect(json[:data][:attributes][:users].length).to eq(2)
+      expect(json[:data][:attributes][:shows].length).to eq(2)
     end
 
     it 'returns a 404 if the itinerary is not found' do
       Itinerary.destroy_all
 
-      get "/api/v1/itinerary/1"
+      get "/api/v1/itineraries/1"
       expect(response).to_not be_successful
-# require 'pry'; binding.pry
-      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(404)
 
-      error = data[:errors].first
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(json[:message]).to eq("your request could not be completed")
+      error = json[:errors].first
       expect(error[:status]).to eq("404")
-      expect(error[:title]).to eq("Couldn't find Item with 'id'=1") 
+      expect(error[:title]).to eq("Couldn't find Itinerary with 'id'=1") 
     end
   end
 end

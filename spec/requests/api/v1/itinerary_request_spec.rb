@@ -33,7 +33,16 @@ RSpec.describe 'Itinerary API', type: :request do
       expect(json[:data][1][:attributes][:title]).to eq("Metal Bands Day 2")
       expect(json[:data][1][:attributes][:date]).to eq("2025-02-02")
       expect(json[:data][1][:attributes][:img_url]).to eq("https://themusicroom.me/wp-content/uploads/2014/10/Nita.jpg")
+    end
 
+    it 'does not error when there are no itineraries' do
+      Itinerary.destroy_all
+      
+      get "/api/v1/itineraries"
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to be_successful
+
+      expect(json[:data].length).to eq(0)
     end
   end
 end

@@ -23,12 +23,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_204404) do
   end
 
   create_table "itinerary_shows", force: :cascade do |t|
-    t.bigint "itineraries_id", null: false
-    t.bigint "shows_id", null: false
+    t.bigint "itinerary_id", null: false
+    t.bigint "show_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["itineraries_id"], name: "index_itinerary_shows_on_itineraries_id"
-    t.index ["shows_id"], name: "index_itinerary_shows_on_shows_id"
+    t.index ["itinerary_id"], name: "index_itinerary_shows_on_itinerary_id"
+    t.index ["show_id"], name: "index_itinerary_shows_on_show_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -41,11 +41,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_204404) do
 
   create_table "user_itineraries", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "user_itineraries_id", null: false
+    t.bigint "itinerary_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_user_itineraries_on_itinerary_id"
     t.index ["user_id"], name: "index_user_itineraries_on_user_id"
-    t.index ["user_itineraries_id"], name: "index_user_itineraries_on_user_itineraries_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,8 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_204404) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "itinerary_shows", "itineraries", column: "itineraries_id"
-  add_foreign_key "itinerary_shows", "shows", column: "shows_id"
-  add_foreign_key "user_itineraries", "user_itineraries", column: "user_itineraries_id"
+  add_foreign_key "itinerary_shows", "itineraries"
+  add_foreign_key "itinerary_shows", "shows"
+  add_foreign_key "user_itineraries", "itineraries"
   add_foreign_key "user_itineraries", "users"
 end

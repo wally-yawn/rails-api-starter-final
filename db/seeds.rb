@@ -32,13 +32,13 @@ user2 = User.create!(
 itinerary1 = Itinerary.create!(
   title: "CO Bands Day 1",
   date: Date.new(2025, 2, 1),
-  img_url: "https://en.wikipedia.org/wiki/File:Flag_of_Colorado.svg"
+  img_url: "https://yocolorado.com/cdn/shop/articles/YoColorado-130793-Colors-Colorado-Flag-Blogbanner1.jpg?v=1651160341&width=1400"
 )
 
 itinerary2 = Itinerary.create!(
   title: "CO Bands Day 2",
   date: Date.new(2025, 2, 2),
-  img_url: "https://en.wikipedia.org/wiki/File:Flag_of_Colorado.svg"
+  img_url: "https://yocolorado.com/cdn/shop/articles/YoColorado-130793-Colors-Colorado-Flag-Blogbanner1.jpg?v=1651160341&width=1400"
 )
 
 itinerary3 = Itinerary.create!(

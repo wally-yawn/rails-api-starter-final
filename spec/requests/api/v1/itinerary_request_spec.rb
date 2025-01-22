@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Itinerary API', type: :request do
   describe 'index' do
     it 'returns a list of itineraries' do
-      # require 'pry'; binding.pry
       Itinerary.destroy_all
 
       itinerary1 = Itinerary.create!(

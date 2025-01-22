@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Show API', type: :request do
   describe 'destroy' do
     it 'destroys shows and itinerary shows' do
-      # require 'pry'; binding.pry
       Itinerary.destroy_all
 
       itinerary1 = Itinerary.create!(

@@ -2,8 +2,7 @@
 
 ## Description
 The festival app is an admin utility for viewing details of the various shows, itineraries, and users for their festival. This backend manages the db according to this schema:
-
-
+<img width="1247" alt="Screenshot 2025-01-21 at 10 08 38 AM" src="https://github.com/user-attachments/assets/1e05759a-0a04-481f-a047-314660b37806" />
 
 
 ## Installation Steps

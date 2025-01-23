@@ -24,6 +24,7 @@ All API routes are under the /api/v1 namespace:
 GET /api/v1/itineraries
  - Fetches a list of all itineraries.
  - Maps to: api/v1/itineraries#index
+
 GET /api/v1/itineraries/:id
  - Fetches the details of a specific itinerary by its ID.
  - Maps to: api/v1/itineraries#show
